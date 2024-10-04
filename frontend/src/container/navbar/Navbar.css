@@ -1,14 +1,11 @@
-li {
-    display: inline;
-    float: left;
-}
-
-p {
-    display: block;
-    padding: 8px;
-    background-color: #dddddd;
-}
 
 ul {
-    background-color: #dddddd;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.ulUpper {
+    background-color: #333;
 }
