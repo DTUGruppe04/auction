@@ -1,11 +1,11 @@
 import Helloworld from "./container/helloworld/Helloworld.tsx";
-import Navbar from "./container/navbar/Navbar.tsx";
+import TestNavbar from "./container/navbar/TestNavBar.tsx";
 
 function App() {
 
     return(
         <>
-            <Navbar/>
+            <TestNavbar/>
             <Helloworld/>
         </>
     )
