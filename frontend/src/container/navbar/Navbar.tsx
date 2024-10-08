@@ -3,48 +3,29 @@ import "./Navbar.css"
 function Navbar() {
     return (
         <>
-            <UpperNav />
-            <UnderNav />
+            <Nav />
         </>
     )
 }
 
-function UpperNav() {
-    return (
-        <>
-            <ul className={"ulUpper"}>
-                <li>
-                    <p>SiteLogo</p>
-                </li>
-                <li>
-                    <p>Search</p>
-                </li>
-                <li>
-                    <p>Login Buttons</p>
-                </li>
-            </ul>
-        </>
-    )
-}
-
-function UnderNav() {
+function Nav() {
     return (
         <>
             <ul>
-                <li>
-                    <p>About</p>
+                <li className={"liLeft active"}>
+                    <p>Home</p>
                 </li>
-                <li>
-                    <p>Features</p>
+                <li className={"liLeft"}>
+                    <p>Browse</p>
                 </li>
-                <li>
-                    <p>Pricing</p>
+                <li className={"liLeft"}>
+                    <p>FAQ</p>
                 </li>
-                <li>
-                    <p>Gallery</p>
+                <li className={"liLeft"}>
+                    <p>About Us</p>
                 </li>
-                <li>
-                    <p>Team</p>
+                <li className={"liRight"}>
+                    <p>Search</p>
                 </li>
             </ul>
         </>
