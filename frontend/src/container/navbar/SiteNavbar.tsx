@@ -1,15 +1,14 @@
 import {Navbar, Nav, Container, Row, Col} from "react-bootstrap";
 
-function TestNavbar() {
+function SiteNavbar() {
     return (
         <>
-            <MyNavbar />
+            <AppNavbar />
         </>
     )
 }
 
-
-function MyNavbar() {
+function AppNavbar() {
     return (
         <Navbar bg="dark" data-bs-theme="dark" expand="sm" className="bg-body-tertiary">
             <Container fluid>
@@ -31,4 +30,4 @@ function MyNavbar() {
     );
 }
 
-export default TestNavbar
+export default SiteNavbar

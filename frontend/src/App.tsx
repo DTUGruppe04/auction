@@ -1,12 +1,13 @@
-import Helloworld from "./container/helloworld/Helloworld.tsx";
-import TestNavbar from "./container/navbar/TestNavBar.tsx";
+import SiteNavbar from "./container/navbar/SiteNavbar.tsx";
+import Auction from "./container/auction/Auction.tsx";
 
 function App() {
 
     return(
         <>
-            <TestNavbar/>
-            <Helloworld/>
+            <SiteNavbar/>
+            <h1>HELP</h1>
+            <Auction/>
         </>
     )
 }
