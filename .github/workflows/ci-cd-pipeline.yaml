@@ -1,0 +1,58 @@
+name: Basic MERN CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - developer
+  pull_request:
+    branches:
+      - main
+      - developer
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.8.0' 
+
+      # Backend-specific steps
+      # Step 3: Install backend dependencies
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      # Step 4: Run backend tests
+      - name: Run backend tests
+        run: |
+          cd backend
+          npm test
+
+      # Frontend-specific steps
+      # Step 5: Install frontend dependencies
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install
+
+      # Step 6: Build frontend
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
+
+      # Step 7: Run frontend tests
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm test
