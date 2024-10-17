@@ -1,15 +1,12 @@
-import SiteNavbar from "./container/navbar/SiteNavbar.tsx";
-import Auction from "./container/auction/Auction.tsx";
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
-function App() {
-
-    return(
-        <>
-            <SiteNavbar/>
-            <h1>HELP</h1>
-            <Auction/>
-        </>
-    )
-}
-
+const App = () => {
+    return (
+        <div className="w-full p-6">
+            <Navbar />
+            <Outlet />
+        </div>
+    );
+};
 export default App

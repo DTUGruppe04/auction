@@ -1,11 +1,51 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { routes } from "./routes.tsx";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import App from "./App";
+import Record from "./components/Record";
+import RecordList from "./components/RecordList";
+import "./index.css";
 
-const router = createBrowserRouter(routes);
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-      <RouterProvider router={router} />
-  </StrictMode>,
-)
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <RecordList />,
+            },
+        ],
+    },
+    {
+        path: "/edit/:id",
+        element: <App />,
+        children: [
+            {
+                path: "/edit/:id",
+                element: <Record />,
+            },
+        ],
+    },
+    {
+        path: "/create",
+        element: <App />,
+        children: [
+            {
+                path: "/create",
+                element: <Record />,
+            },
+        ],
+    },
+]);
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);
