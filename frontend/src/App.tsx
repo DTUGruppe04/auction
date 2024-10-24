@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Slideshow from "./components/Carousel.tsx";
+import Slideshow from "./components/Slideshow.tsx";
 
 const App = () => {
     return (
