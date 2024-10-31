@@ -9,6 +9,9 @@ function AuctionPage() {
         <div>
             <div className="w-full p-10 pt-2">
                 <NavigationBar />
+                <div className="text-left ml-4">
+                    <p className="text-2xl">Lot 1069: The Forked Path of Solitude by Elara V. Thornfield</p>
+                </div>
                 <div className="flex justify-between p-4 space-x-12">
                     <div className="flex-grow w-3/5">
                         <div>
