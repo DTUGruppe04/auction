@@ -4,7 +4,7 @@ export function CurrentBid() {
     return (
         <Card className="max-w-sm">
             <div className="">
-                <p className="text-xl font-bold leading-none text-center text-gray-900 dark:text-white">
+                <p className="text-3xl font-bold leading-none text-center text-gray-900 dark:text-white">
                     Current Bid:
                 </p>
                 <p className="text-2xl text-center">
@@ -16,7 +16,7 @@ export function CurrentBid() {
                 </p>
             </div>
             <div className="flex items-center justify-between">
-                <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Bidders</h5>
+                <h5 className="text-lg font-bold leading-none text-gray-900 dark:text-white">Latest Bidders</h5>
                 {/*<a href="#" className="text-sm font-medium text-cyan-600 hover:underline dark:text-cyan-500">
                     View all
                 </a>

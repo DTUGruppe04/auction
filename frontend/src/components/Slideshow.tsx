@@ -2,7 +2,7 @@ import { Carousel, Button, TextInput, Label} from "flowbite-react"
 
 export function ImageSlideshow() {
     return (
-        <div className="h-96 sm:h-64 xl:h-80 2xl:h-96">
+        <div className="aspect-video">
             <Carousel slideInterval={5000}>
                 <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..."/>
                 <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..."/>
