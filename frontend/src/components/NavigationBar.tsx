@@ -1,6 +1,6 @@
 import { Button, Navbar } from "flowbite-react";
 
-function Slideshow() {
+function NavigationsBar() {
     return (
         <Navbar fluid rounded>
             <Navbar.Brand href="#">
@@ -24,4 +24,4 @@ function Slideshow() {
     );
 }
 
-export default Slideshow;
+export default NavigationsBar;
