@@ -1,6 +1,5 @@
 import { Carousel } from "flowbite-react"
 
-
 function Slideshow() {
     return (
         <div className="flex justify-between p-4 bg-gray-100 space-x-4">
