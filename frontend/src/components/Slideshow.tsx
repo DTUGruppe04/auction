@@ -1,17 +1,8 @@
 import { Carousel, Button, TextInput, Label} from "flowbite-react"
 
-function Slideshow() {
+export function ImageSlideshow() {
     return (
-        <div className="flex justify-between p-4 bg-gray-100 space-x-4">
-            <ImageSlideshow />
-            <ImageInfo />
-        </div>
-    );
-}
-
-function ImageSlideshow() {
-    return (
-        <div className="flex-grow h-96 sm:h-64 xl:h-80 2xl:h-96">
+        <div className="h-96 sm:h-64 xl:h-80 2xl:h-96">
             <Carousel slideInterval={5000}>
                 <img src="https://flowbite.com/docs/images/carousel/carousel-1.svg" alt="..."/>
                 <img src="https://flowbite.com/docs/images/carousel/carousel-2.svg" alt="..."/>
@@ -23,9 +14,9 @@ function ImageSlideshow() {
     )
 }
 
-function ImageInfo() {
+export function ImageInfo() {
     return (
-        <div className="flex-grow-0 text-left w-2/5">
+        <div className="text-left">
             <div className="p-4 bg-stone-300">
                 <p className="text-xl">Auction</p>
                 <p className="text-sm">Est: $400 - $1200 USD</p>
@@ -49,5 +40,3 @@ function ImageInfo() {
         </div>
     );
 }
-
-export default Slideshow;
