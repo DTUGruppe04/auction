@@ -23,7 +23,7 @@ export default function Register() {
             </div>
             <div className="w-1/4 mb-3">
                 <div className="mb-2 block">
-                    <Label htmlFor="password2" value="Your password"/>
+                    <Label htmlFor="password2" value="Password"/>
                 </div>
                 <TextInput id="password2" type="password" required shadow/>
             </div>
@@ -49,9 +49,9 @@ export default function Register() {
             </div>
             <div className="w-1/4 mb-3">
                 <div className="mb-2 block">
-                <Label htmlFor="address1" value="Address"/>
+                <Label htmlFor="street1" value="Street"/>
                 </div>
-                <TextInput id="address1" type="text" sizing="sm"/>
+                <TextInput id="street1" type="text" sizing="sm"/>
             </div>
             <div className="mt-3">
                 <Button>Register</Button>
