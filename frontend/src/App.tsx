@@ -1,8 +1,8 @@
-import AuctionPage from "./pages/AuctionPage.tsx";
+import LoginRegisterPage from "./pages/login_register.tsx";
 
 const App = () => {
     return (
-        <AuctionPage />
+        <LoginRegisterPage />
     );
 };
 export default App

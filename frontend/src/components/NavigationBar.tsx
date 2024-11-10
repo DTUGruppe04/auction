@@ -8,7 +8,7 @@ function NavigationBar() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">DTU Auction</span>
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Button>Get started</Button>
+                <Button>Login</Button>
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
