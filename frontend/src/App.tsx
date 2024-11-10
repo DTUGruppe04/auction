@@ -1,8 +1,8 @@
-import LoginRegisterPage from "./pages/login_register.tsx";
+import {Outlet} from "react-router-dom";
 
 const App = () => {
     return (
-        <LoginRegisterPage />
+        <><Outlet/></>
     );
 };
 export default App

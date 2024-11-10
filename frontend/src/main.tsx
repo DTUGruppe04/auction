@@ -9,6 +9,7 @@ import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import "./index.css";
 import LoginRegisterPage from "./pages/login_register.tsx";
+import AuctionPage from "./pages/AuctionPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <LoginRegisterPage />,
+            },
+            {
+                path: "/auctionPage",
+                element: <AuctionPage />
             },
         ],
     },
