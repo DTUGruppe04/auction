@@ -1,4 +1,5 @@
 import { Button, Navbar } from "flowbite-react";
+import { Link } from "react-router-dom";
 
 function NavigationBar() {
     return (
@@ -8,7 +9,8 @@ function NavigationBar() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">DTU Auction</span>
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Button>Login</Button>
+                <Link to = "/login"><Button>Login</Button></Link>
+
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>

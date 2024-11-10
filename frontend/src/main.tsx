@@ -8,6 +8,7 @@ import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
 import "./index.css";
+import LoginRegisterPage from "./pages/login_register.tsx";
 
 const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <RecordList />,
+            },
+            {
+                path: "/login",
+                element: <LoginRegisterPage />,
             },
         ],
     },
