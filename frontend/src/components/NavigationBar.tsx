@@ -1,7 +1,14 @@
 import { Button, Navbar } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function NavigationBar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    };
+
     return (
         <Navbar fluid rounded>
             <Navbar.Brand href="#">
@@ -12,7 +19,10 @@ function NavigationBar() {
                 <Link to="/login">
                     <Button>Login</Button>
                 </Link>
-                <Navbar.Toggle />
+                <Button color="failure" onClick={handleLogout} className="ml-2">
+                    Logout
+                </Button>
+                <Navbar.Toggle/>
             </div>
             <Navbar.Collapse>
                 <Navbar.Link href="#" active>

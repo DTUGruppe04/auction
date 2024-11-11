@@ -10,6 +10,7 @@ import RecordList from "./components/RecordList";
 import "./index.css";
 import LoginRegisterPage from "./pages/login_register.tsx";
 import AuctionPage from "./pages/AuctionPage.tsx";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "/auctionPage",
-                element: <AuctionPage />
+                element: (
+                    <ProtectedRoute>
+                        <AuctionPage />
+                    </ProtectedRoute>
+                ),
             },
         ],
     },
