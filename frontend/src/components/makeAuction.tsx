@@ -3,6 +3,10 @@ import { Label, TextInput, Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
+interface DecodedToken {
+    userID: string;
+}
+
 export default function NewAuctionForm() {
     const [startDateTime, setStartDateTime] = useState("");
     const [endDateTime, setEndDateTime] = useState("");
@@ -11,6 +15,7 @@ export default function NewAuctionForm() {
     const [description, setDescription] = useState("");
     const [estimatedValue, setEstimatedValue] = useState("");
     const [pictureUrl, setPictureUrl] = useState("");
+    const [creationDate, setCreationDate] = useState("");
     const [pictures, setPictures] = useState([]);
     const navigate = useNavigate();
 
@@ -36,7 +41,7 @@ export default function NewAuctionForm() {
             return;
         }
 
-        const decodedToken = jwtDecode(token);
+        const decodedToken = jwtDecode<DecodedToken>(token);
         const userID = decodedToken.userID;
 
         try {
@@ -44,22 +49,25 @@ export default function NewAuctionForm() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({ name: artPieceName, artistName, description, estimatedValue }),
+                body: JSON.stringify({ name: artPieceName, artistName, description, estimatedValue, pictureUrl, creationDate }),
             });
-            const artPieceData = await artPieceResponse.json();
 
             if (!artPieceResponse.ok) {
                 console.error("Failed to create art piece");
                 return;
             }
 
+            const artPieceData = await artPieceResponse.json();
+
             const auctionResponse = await fetch("http://localhost:5050/auctions", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({ startDateTime, endDateTime, artPieceID: artPieceData.artPieceID, userID, pictureUrl }),
+                body: JSON.stringify({ startDateTime, endDateTime, artPieceID: artPieceData.artPieceID, userID }),
             });
 
             if (auctionResponse.ok) {
@@ -138,6 +146,17 @@ export default function NewAuctionForm() {
                     type="number"
                     value={estimatedValue}
                     onChange={(e) => setEstimatedValue(e.target.value)}
+                />
+            </div>
+            <div className="w-1/4 mb-3">
+                <div className="mb-2 block">
+                    <Label htmlFor="creationDate" value="Creation Date" />
+                </div>
+                <TextInput
+                    id="creationDate"
+                    type="date"
+                    value={creationDate}
+                    onChange={(e) => setCreationDate(e.target.value)}
                 />
             </div>
             <div className="w-1/4 mb-3">

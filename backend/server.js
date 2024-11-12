@@ -5,26 +5,16 @@ import cors from "cors";
 import { fileURLToPath } from "url";
 import authRouter from "./routes/auth.js";
 import recordRouter from "./routes/record.js";
+import auctionsRouter from "./routes/auctions.js";
+import artpiecesRouter from "./routes/artpieces.js";
 import jwt from "jsonwebtoken";
+import authenticateToken from "./middleware/authenticateToken.js"; // Import the middleware
 
 const app = express();
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 const secret = "team04"; // Use a secure secret in production
-
-function authenticateToken(req, res, next) {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-
-    if (token == null) return res.sendStatus(401);
-
-    jwt.verify(token, secret, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
-}
 
 // Get the directory name
 const __filename = fileURLToPath(import.meta.url);
@@ -44,6 +34,8 @@ app.use("/pictures", express.static(path.join(__dirname, "pictures")), (req, res
 app.use("/auth", authRouter);
 //can only access /record if authenticated can be used when want to restrict access to certain routes
 app.use("/record", authenticateToken, recordRouter);
+app.use("/auctions", authenticateToken, auctionsRouter);
+app.use("/artpieces", authenticateToken, artpiecesRouter);
 
 app.get("/pictures", (req, res) => {
     const picturesDir = path.join(__dirname, "pictures");
