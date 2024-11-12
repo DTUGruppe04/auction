@@ -2,6 +2,8 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import db from "../db/connection.js";
+import {ObjectId} from "mongodb";
+import authenticateToken from "../middleware/authenticateToken.js";
 
 const router = express.Router();
 const secret = "team04"; // Use a secure secret in production
@@ -78,4 +80,21 @@ router.post("/login", async (req, res) => {
     }
 });
 
+// Get user information by ID
+router.get("/:id", authenticateToken, async (req, res) => {
+    const { id } = req.params;
+    console.log(`Fetching user with ID: ${id}`); // Log the user ID
+
+    try {
+        const user = await db.collection("users").findOne({ _id: new ObjectId(id) });
+        console.log(`User found: ${JSON.stringify(user)}`); // Log the user data
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        console.error(`Error fetching user information: ${err}`); // Log the error
+        res.status(500).json({ error: "Error fetching user information" });
+    }
+});
 export default router;

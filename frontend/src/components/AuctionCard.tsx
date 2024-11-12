@@ -13,6 +13,9 @@ interface AuctionCardProps {
             estimatedValue: string;
             pictureUrl: string;
         };
+        owner: {
+            name: string;
+        };
     };
 }
 
@@ -42,6 +45,7 @@ export default function AuctionCard({ auction }: AuctionCardProps) {
             <p className="text-sm font-bold">Estimated Value: {auction.artPiece.estimatedValue} DKK</p>
             <p className="text-sm">Start: {new Date(auction.startDateTime).toLocaleString()}</p>
             <p className="text-sm">End: {new Date(auction.endDateTime).toLocaleString()}</p>
+            <p className="text-sm">Owner: {auction.owner.name}</p>
         </Card>
     );
 }

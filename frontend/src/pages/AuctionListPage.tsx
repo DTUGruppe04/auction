@@ -18,7 +18,9 @@ interface Auction {
     startDateTime: string;
     endDateTime: string;
     artPieceID: string;
+    userID: string;
     artPiece?: ArtPiece;
+    owner?: { name: string };
 }
 
 export default function AuctionListPage() {
@@ -51,7 +53,7 @@ export default function AuctionListPage() {
                     }
                 } else {
                     const data: Auction[] = await response.json();
-                    const auctionsWithArtPieces = await Promise.all(data.map(async (auction) => {
+                    const auctionsWithDetails = await Promise.all(data.map(async (auction) => {
                         try {
                             const artPieceResponse = await fetch(`http://localhost:5050/artpieces/${auction.artPieceID}`, {
                                 headers: {
@@ -65,13 +67,27 @@ export default function AuctionListPage() {
                             }
 
                             const artPiece = await artPieceResponse.json();
-                            return { ...auction, artPiece };
+
+                            console.log(`Fetching owner with userID: ${auction.userID}`); // Log the user ID
+                            const ownerResponse = await fetch(`http://localhost:5050/auth/${auction.userID}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+
+                            if (!ownerResponse.ok) {
+                                console.error(`Error fetching owner: ${ownerResponse.status} ${ownerResponse.statusText}`);
+                                return auction; // Return auction without owner if there's an error
+                            }
+
+                            const owner = await ownerResponse.json();
+                            return { ...auction, artPiece, owner };
                         } catch (error) {
-                            console.error("Error fetching art piece:", error);
-                            return auction; // Return auction without artPiece if there's an error
+                            console.error("Error fetching auction details:", error);
+                            return auction; // Return auction without details if there's an error
                         }
                     }));
-                    setAuctions(auctionsWithArtPieces);
+                    setAuctions(auctionsWithDetails);
                 }
             } catch (error) {
                 setError((error as Error).message);

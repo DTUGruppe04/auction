@@ -31,8 +31,8 @@ app.use("/pictures", express.static(path.join(__dirname, "pictures")), (req, res
     next();
 });
 
-app.use("/auth", authRouter);
 //can only access /record if authenticated can be used when want to restrict access to certain routes
+app.use("/auth", authenticateToken, authRouter);
 app.use("/record", authenticateToken, recordRouter);
 app.use("/auctions", authenticateToken, auctionsRouter);
 app.use("/artpieces", authenticateToken, artpiecesRouter);
