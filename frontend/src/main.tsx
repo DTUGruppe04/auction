@@ -10,6 +10,7 @@ import RecordList from "./components/RecordList";
 import "./index.css";
 import LoginRegisterPage from "./pages/login_register.tsx";
 import AuctionPage from "./pages/AuctionPage.tsx";
+import AuctionListPage from "./pages/AuctionListPage.tsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreateAuctionPage from "./pages/createAuctionPage.tsx";
 
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
                         <CreateAuctionPage />
                     </ProtectedRoute>
                 ),
+            },
+            {
+                path: "/auctions",
+                element: <AuctionListPage />,
+            },
+            {
+                path: "/auction/:id",
+                element: <AuctionPage />,
             },
         ],
     },

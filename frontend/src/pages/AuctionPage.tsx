@@ -7,8 +7,9 @@ import {FooterBottom} from "../components/Footer.tsx";
 function AuctionPage() {
     return (
         <div>
+            <NavigationBar/>
             <div className="w-full p-10 pt-2">
-                <NavigationBar/>
+
                 <hr className="pb-4"/>
                 <div className="text-left ml-4">
                     <p className="text-2xl">Lot 1069: The Forked Path of Solitude by Elara V. Thornfield</p>

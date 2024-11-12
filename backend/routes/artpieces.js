@@ -20,4 +20,20 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 });
 
+// Add GET endpoint to fetch art piece by ID
+router.get('/:id', authenticateToken, async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const artPiece = await db.collection('artpieces').findOne({ _id: new ObjectId(id) });
+        if (!artPiece) {
+            return res.status(404).json({ error: 'Art piece not found' });
+        }
+        res.status(200).json(artPiece);
+    } catch (error) {
+        console.error('Error fetching art piece:', error);
+        res.status(500).json({ error: 'Failed to fetch art piece' });
+    }
+});
+
 export default router;

@@ -6,6 +6,17 @@ import authenticateToken from '../middleware/authenticateToken.js';
 
 const router = express.Router();
 
+router.get('/', authenticateToken, async (req, res) => {
+    console.log('GET /auctions endpoint hit'); // Add this line for logging
+    try {
+        const auctions = await db.collection('auctions').find().toArray();
+        res.status(200).json(auctions);
+    } catch (error) {
+        console.error('Error fetching auctions:', error);
+        res.status(500).json({ error: 'Failed to fetch auctions' });
+    }
+});
+
 router.post('/', authenticateToken, async (req, res) => {
     const { startDateTime, endDateTime, artPieceID } = req.body;
     const userID = new ObjectId(req.user.id);
