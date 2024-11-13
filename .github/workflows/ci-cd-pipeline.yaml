@@ -56,3 +56,17 @@ jobs:
         run: |
           cd frontend
           npm test
+
+      # Step 8: Deploy to DigitalOcean
+      - name: Deploy to DigitalOcean
+        run: |
+          # Setup SSH key from GitHub Secrets
+          echo "${{ secrets.PRIVATE_ACTIONS_KEY }}" > github_actions_key.pem
+          chmod 600 github_actions_key.pem
+          
+          # Deploy code to your server (update the IP address and path)
+          ssh -i github_actions_key.pem -o StrictHostKeyChecking=no deployer@64.226.126.198 'bash -s' < deploy.sh
+
+        env:
+          # Make sure the private key is provided securely through secrets
+          PRIVATE_ACTIONS_KEY: ${{ secrets.PRIVATE_ACTIONS_KEY }}
