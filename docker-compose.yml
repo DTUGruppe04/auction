@@ -22,6 +22,8 @@ services:
       - backend
     networks:
       - mern-network
+    env:
+        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}  # Reference React API URL from GitHub Secrets
 
   mongo:
     image: mongo:latest
