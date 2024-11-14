@@ -19,54 +19,73 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js environment
+      # Step 2: Log in to Docker Hub using the secrets
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 3: Build and push backend Docker image
+      - name: Build and push backend image
+        run: |
+          docker build -t <your-dockerhub-jenshols>/mern-backend ./backend
+          docker push <your-dockerhub-jenshols>/mern-backend
+
+      # Step 4: Build and push frontend Docker image
+      - name: Build and push frontend image
+        run: |
+          docker build -t <your-dockerhub-jenshols>/mern-frontend ./frontend
+          docker push <your-dockerhub-jenshols>/mern-frontend
+
+      # Step 5: Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22.8.0' 
 
       # Backend-specific steps
-      # Step 3: Install backend dependencies
+      # Step 6: Install backend dependencies
       - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
-      # Step 4: Run backend tests
+      # Step 7: Run backend tests
       - name: Run backend tests
         run: |
           cd backend
           npm test
 
       # Frontend-specific steps
-      # Step 5: Install frontend dependencies
+      # Step 8: Install frontend dependencies
       - name: Install frontend dependencies
         run: |
           cd frontend
           npm install
 
-      # Step 6: Build frontend
+      # Step 9: Build frontend
       - name: Build frontend
         run: |
           cd frontend
           npm run build
 
-      # Step 7: Run frontend tests
+      # Step 10: Run frontend tests
       - name: Run frontend tests
         run: |
           cd frontend
           npm test
 
-      # Step 8: Deploy to DigitalOcean
-      - name: Deploy to DigitalOcean
-        run: |
-          # Setup SSH key from GitHub Secrets
-          echo "${{ secrets.PRIVATE_ACTIONS_KEY }}" > github_actions_key.pem
-          chmod 600 github_actions_key.pem
-          
-          # Deploy code to your server (update the IP address and path)
-          ssh -i github_actions_key.pem -o StrictHostKeyChecking=no deployer@64.226.126.198 'bash -s' < deploy.sh
+      # Step 11: Deploy to DigitalOcean
 
+      - name: Deploy to DigitalOcean server
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.PRIVATE_ACTIONS_KEY }}
+          script: |
+            /path/to/your/deploy.sh
         env:
-          # Make sure the private key is provided securely through secrets
-          PRIVATE_ACTIONS_KEY: ${{ secrets.PRIVATE_ACTIONS_KEY }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}  # Node environment variable
+          ATLAS_URI: ${{ secrets.ATLAS_URI }}  # If you're using Atlas for MongoDB
