@@ -88,4 +88,6 @@ jobs:
             /path/to/your/deploy.sh
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}  # Node environment variable
-          ATLAS_URI: ${{ secrets.ATLAS_URI }}  # If you're using Atlas for MongoDB
+          ATLAS_URI: ${{ secrets.ATLAS_URI }}  # Atlas for MongoDB
+          MONGO_INITDB_ROOT_USERNAME: ${{  secrets.MONGO_INITDB_ROOT_USERNAME  }}  # MongoDB username
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD  }}  # MongoDB password

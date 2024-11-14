@@ -30,7 +30,9 @@ services:
     networks:
       - mern-network
     environment:
-      MONGO_INITDB_DATABASE: mydatabase
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}  # MongoDB username
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}  # MongoDB password
+      - MONGO_INITDB_DATABASE: mydatabase
 
 networks:
   mern-network:
