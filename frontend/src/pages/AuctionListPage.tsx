@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import AuctionCard from "../components/AuctionCard.tsx";
-import NavigationBar from "../components/NavigationBar.tsx";
-import { FooterBottom } from "../components/Footer.tsx";
-import {Button} from "flowbite-react";
 
 interface ArtPiece {
     name: string;
@@ -33,7 +30,7 @@ export default function AuctionListPage() {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    navigate('/login');
+                    navigate('/');
                     return;
                 }
 
@@ -45,7 +42,7 @@ export default function AuctionListPage() {
 
                 if (!response.ok) {
                     if (response.status === 401) {
-                        navigate('/login');
+                        navigate('/');
                     } else if (response.status === 404) {
                         setError('Auctions not found.');
                     } else {
@@ -102,18 +99,16 @@ export default function AuctionListPage() {
         return <div>Error: {error}</div>;
     }
 
+    //2k-height:pb-60 fixes the visual bug for the footer for larger screens
     return (
         <div>
-            <NavigationBar />
-            <Link to="/createAuctionPage" >
-                <Button className="ml-4">Create new auction</Button>
-            </Link>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-                {auctions.map((auction) => (
-                    auction.artPiece && <AuctionCard key={auction.auctionID} auction={auction} />
-                ))}
+            <div className="w-full p-10 pt-2 2k-height:pb-60">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+                    {auctions.map((auction) => (
+                        auction.artPiece && <AuctionCard key={auction.auctionID} auction={auction}/>
+                    ))}
+                </div>
             </div>
-            <FooterBottom />
         </div>
     );
 }

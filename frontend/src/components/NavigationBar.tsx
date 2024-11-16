@@ -6,7 +6,7 @@ function NavigationBar() {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/");
     };
 
     return (
@@ -16,7 +16,7 @@ function NavigationBar() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">DTU Auction</span>
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Link to="/login">
+                <Link to="/">
                     <Button>Login</Button>
                 </Link>
                 <Button color="failure" onClick={handleLogout} className="ml-2">
@@ -25,13 +25,10 @@ function NavigationBar() {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link href="#" active>
-                    Home
-                </Navbar.Link>
                 <Navbar.Link as={Link} to="/auctions">
                     Browse
                 </Navbar.Link>
-                <Navbar.Link href="#">Sell</Navbar.Link>
+                <Navbar.Link as={Link} to="/createAuctionPage">Create Auction</Navbar.Link>
                 <Navbar.Link href="#">About Us</Navbar.Link>
                 <Navbar.Link href="#">Help/Support</Navbar.Link>
             </Navbar.Collapse>

@@ -8,7 +8,11 @@ module.exports = {
       flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        '2k-height': { 'raw': '(min-height: 1220px)' },
+      },
+    },
   },
   plugins: [
     flowbite.plugin()

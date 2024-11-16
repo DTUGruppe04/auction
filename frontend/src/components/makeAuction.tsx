@@ -81,7 +81,7 @@ export default function NewAuctionForm() {
     };
 
     return (
-        <div className="w-full flex-col justify-items-center">
+        <div className="w-full p-10 pt-2 flex-col justify-items-center">
             <div className="w-1/4 mb-3">
                 <div className="mb-2 block">
                     <Label htmlFor="startDateTime" value="Start Date and Time" />

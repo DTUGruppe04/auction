@@ -1,8 +1,14 @@
 import {Outlet} from "react-router-dom";
+import NavigationBar from "./components/NavigationBar.tsx";
+import {FooterBottom} from "./components/Footer.tsx";
 
 const App = () => {
     return (
-        <><Outlet/></>
+        <>
+            <NavigationBar />
+            <Outlet/>
+            <FooterBottom />
+        </>
     );
 };
 export default App

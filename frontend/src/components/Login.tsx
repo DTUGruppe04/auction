@@ -23,7 +23,7 @@ export default function Login() {
                 setUsernameError("");
                 setPasswordError("");
                 localStorage.setItem("token", data.token);
-                navigate("/auctionpage");
+                navigate("/auctions");
             } else {
                 if (data.error === "Invalid username") {
                     setUsernameError("Username doesn't match any");

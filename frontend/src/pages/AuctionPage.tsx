@@ -1,15 +1,11 @@
 import {ImageInfo, ImageSlideshow} from "../components/Slideshow.tsx";
 import {ItemOverview} from "../components/ItemOverview.tsx";
 import {CurrentBid} from "../components/CurrentBid.tsx";
-import NavigationBar from "../components/NavigationBar.tsx";
-import {FooterBottom} from "../components/Footer.tsx";
 
 function AuctionPage() {
     return (
         <div>
-            <NavigationBar/>
             <div className="w-full p-10 pt-2">
-
                 <hr className="pb-4"/>
                 <div className="text-left ml-4">
                     <p className="text-2xl">Lot 1069: The Forked Path of Solitude by Elara V. Thornfield</p>
@@ -33,7 +29,6 @@ function AuctionPage() {
                     </div>
                 </div>
             </div>
-            <FooterBottom />
         </div>
     );
 }
