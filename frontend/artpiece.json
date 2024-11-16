@@ -1,0 +1,20 @@
+{
+  "_id": {
+    "$oid":"6733a51b0bab4e3b6da21c97"
+  },
+  "name":"Mona Lisa",
+  "artistName":"Leonardo da Vinci",
+  "description":"The Mona Lisa is a half-length portrait painting by Italian artist Leonardo da Vinci. Considered an archetypal masterpiece of the Italian Renaissance, it has been described as \"the best known, the most visited, the most written about, the most sung about and the most parodied work of art in the world.\" The painting's novel qualities include the subject's enigmatic expression, monumentality of the composition, the subtle modelling of forms, and the atmospheric illusionism.",
+  "estimatedValue":"6414813100",
+  "ownerID":{
+    "$oid":"67326c3258141547e064e384"
+  },
+  "creationDate":"1503-01-01",
+  "pictureUrls": [
+    "http://localhost:5050/pictures/Mona_Lisa.jpg",
+    "https://flowbite.com/docs/images/carousel/carousel-1.svg"
+  ],
+  "auctionStart": "September 18, 2024, 09:00 AM CET",
+  "auctionEnd": "January 1, 2024, 09:00 AM CET",
+  "address": "The Tipsy Tap 123 Imaginary Lane Copenhagen, 2100 Denmark"
+}

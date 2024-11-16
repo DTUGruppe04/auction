@@ -1,17 +1,18 @@
 import { Accordion, AccordionContent, AccordionPanel, AccordionTitle } from "flowbite-react";
+import { ArtPiece } from "../types/ArtPiece.ts"
 
-export function ItemOverview() {
+interface ItemOverviewProps {
+    item: ArtPiece;
+}
+
+export const ItemOverview: React.FC<ItemOverviewProps> = ({ item }) => {
     return (
         <Accordion>
             <AccordionPanel>
                 <AccordionTitle>Item Overview</AccordionTitle>
                 <AccordionContent>
                     <p className="mb-2 text-gray-500 dark:text-gray-400">
-                        In the painting, a solitary figure stands at a crossroads in a vast field of vibrant red poppies.
-                        The sky above is a somber gray, heavy with the promise of rain, while a flock of birds takes flight in the distance, adding a sense of
-                        movement to the otherwise still scene. The figure, clad in a striking red coat, seems to be contemplating which path
-                        to take, each one disappearing into the horizon lined with tall, whispering trees. The overall mood of the painting is
-                        one of introspection and quiet determination, capturing a moment of decision amidst the serene beauty of nature.
+                        {item.description}
                     </p>
                 </AccordionContent>
             </AccordionPanel>
