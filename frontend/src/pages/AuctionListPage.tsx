@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AuctionCard from "../components/AuctionCard.tsx";
 
 interface ArtPiece {
@@ -11,6 +11,7 @@ interface ArtPiece {
 }
 
 interface Auction {
+    _id: string;
     auctionID: string;
     startDateTime: string;
     endDateTime: string;
@@ -50,6 +51,7 @@ export default function AuctionListPage() {
                     }
                 } else {
                     const data: Auction[] = await response.json();
+
                     const auctionsWithDetails = await Promise.all(data.map(async (auction) => {
                         try {
                             const artPieceResponse = await fetch(`http://localhost:5050/artpieces/${auction.artPieceID}`, {
@@ -65,7 +67,6 @@ export default function AuctionListPage() {
 
                             const artPiece = await artPieceResponse.json();
 
-                            console.log(`Fetching owner with userID: ${auction.userID}`); // Log the user ID
                             const ownerResponse = await fetch(`http://localhost:5050/auth/${auction.userID}`, {
                                 headers: {
                                     'Authorization': `Bearer ${token}`
@@ -78,7 +79,8 @@ export default function AuctionListPage() {
                             }
 
                             const owner = await ownerResponse.json();
-                            return { ...auction, artPiece, owner };
+                            const auctionID = auction._id ? auction._id.toString() : '';
+                            return { ...auction, auctionID, artPiece, owner };
                         } catch (error) {
                             console.error("Error fetching auction details:", error);
                             return auction; // Return auction without details if there's an error

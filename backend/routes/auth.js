@@ -10,7 +10,7 @@ const secret = "team04"; // Use a secure secret in production
 
 // Function to validate address (this is a placeholder, implement actual validation logic)
 function isValidAddress(address) {
-    // Add your address validation logic here
+    // Add address validation logic here
     return address.country && address.city && address.street;
 }
 

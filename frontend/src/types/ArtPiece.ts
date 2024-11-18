@@ -3,15 +3,10 @@ export interface ObjectId {
 }
 
 export interface ArtPiece {
-    _id: ObjectId,
-    name: string,
-    artistName: string,
-    description: string,
-    estimatedValue: string,
-    ownerID: ObjectId,
-    creationDate: string,
-    pictureUrls: string[],
-    auctionStart: string,
-    auctionEnd: string,
-    address: string
+    _id: ObjectId;
+    name: string;
+    artistName: string;
+    description: string;
+    estimatedValue: string;
+    pictureUrl: string;
 }

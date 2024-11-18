@@ -1,29 +1,16 @@
 import { Card } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import { Auction } from "../types/Auction.ts";
 
 interface AuctionCardProps {
-    auction: {
-        auctionID: string;
-        startDateTime: string;
-        endDateTime: string;
-        artPiece?: {
-            name?: string;
-            artistName?: string;
-            description?: string;
-            estimatedValue?: string;
-            pictureUrl?: string;
-        };
-        owner?: {
-            name?: string;
-        };
-    };
+    auction: Auction;
 }
 
 export default function AuctionCard({ auction }: AuctionCardProps) {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
-        navigate(`/auction/${auction.auctionID}`);
+        navigate(`/auction/${auction.auctionID}`, { state: { auction } });
     };
 
     if (!auction || !auction.artPiece) {
