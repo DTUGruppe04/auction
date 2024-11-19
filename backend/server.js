@@ -7,6 +7,7 @@ import authRouter from "./routes/auth.js";
 import recordRouter from "./routes/record.js";
 import auctionsRouter from "./routes/auctions.js";
 import artpiecesRouter from "./routes/artpieces.js";
+import bidRouter from "./routes/bid.js";
 import jwt from "jsonwebtoken";
 import authenticateToken from "./middleware/authenticateToken.js"; // Import the middleware
 
@@ -36,6 +37,7 @@ app.use("/auth", authRouter);
 app.use("/record", authenticateToken, recordRouter);
 app.use("/auctions", authenticateToken, auctionsRouter);
 app.use("/artpieces", authenticateToken, artpiecesRouter);
+app.use("/bid", authenticateToken, bidRouter);
 
 app.get("/pictures", (req, res) => {
     const picturesDir = path.join(__dirname, "pictures");

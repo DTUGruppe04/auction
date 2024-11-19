@@ -1,11 +1,12 @@
 import {Button, Carousel, Label, TextInput} from "flowbite-react";
 import {Auction} from "../types/Auction.ts";
+import {useState} from "react";
 
-interface ImageProps {
+interface AuctionProp {
     item: Auction;
 }
 
-export const ImageSlideshow: React.FC<ImageProps> = ({ item }) => {
+export const ImageSlideshow: React.FC<AuctionProp> = ({ item }) => {
     return (
         <div className="aspect-video bg-gray-900">
             <Carousel slideInterval={5000}>
@@ -15,7 +16,36 @@ export const ImageSlideshow: React.FC<ImageProps> = ({ item }) => {
     );
 };
 
-export const ImageInfo: React.FC<ImageProps> = ({item}) => {
+export const ImageInfo: React.FC<AuctionProp> = ({item}) => {
+
+    const [amount, setAmount] = useState("");
+
+    const handleBid = async () => {
+        const token = localStorage.getItem("token");
+            if (!token) {
+                console.error("User is not logged in");
+                return;
+            }
+
+            try {
+                const bidResponse = await fetch("http://localhost:5050/bid", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({amount, dateTime: new Date(), auctionID: item.auctionID}),
+                });
+
+                if(!bidResponse.ok) {
+                    console.error("Failed to create bid");
+                    return;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+    }
+
     return (
         <div className="text-left">
             <div className="p-4 bg-stone-300">
@@ -24,17 +54,25 @@ export const ImageInfo: React.FC<ImageProps> = ({item}) => {
                 <p className="text-xs pt-10 underline underline-offset-2">Register for Live Auction!</p>
             </div>
             <div className="grid gap-y-2 pt-4">
-                <p className="text-base font-medium">test123</p>
+                <p className="text-base font-medium">Auction Lifetime: </p>
                 <p className="">Auction start: {new Date(item.startDateTime).toLocaleString()}</p>
                 <p className="">Auction end: {new Date(item.endDateTime).toLocaleString()}</p>
             </div>
             <form>
                 <div className="flex flex-col">
+                    <br></br>
                     <div className="mb-2 block">
-                        <Label htmlFor="input1" value="Your Bid"/>
+                        <Label htmlFor="amount" value="Your Bid"/>
                     </div>
-                    <TextInput id="input1" type="number" placeholder="Bid" required/>
-                    <Button type="submit">Submit</Button>
+                    <TextInput
+                        id="amount"
+                        type="number"
+                        value={amount}
+                        onChange={(e) => setAmount(e.target.value)}
+                        placeholder="Bid"
+                        required
+                    />
+                    <Button type="submit" onClick={handleBid}>Submit</Button>
                 </div>
             </form>
         </div>
