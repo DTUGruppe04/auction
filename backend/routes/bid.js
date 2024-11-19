@@ -18,7 +18,15 @@ router.post('/', authenticateToken, async (req, res) => {
     try {
         const bid = { userID, amount, dateTime, auctionID};
         const result = await db.collection('bid').insertOne(bid)
-        res.status(201).json({ bidID: result.insertedId });
+        const bidID = result.insertedId;
+
+        // Insert new bidID to Auction
+        await db.collection('auctions').updateOne(
+            { _id: new ObjectId(auctionID) },
+            { $push: { bids: bidID } }
+        );
+
+        res.status(201);
     } catch (e) {
         console.log(e);
         res.status(500).json({ error: 'Failed to create bid' });
