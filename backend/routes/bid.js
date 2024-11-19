@@ -16,7 +16,7 @@ router.post('/', authenticateToken, async (req, res) => {
     const userID = new ObjectId(req.user.id);
 
     try {
-        const bid = { userID, amount, dateTime, auctionID};
+        const bid = { userID, amount, dateTime, auctionID: new ObjectId(auctionID)};
         const result = await db.collection('bid').insertOne(bid)
         const bidID = result.insertedId;
 
@@ -32,5 +32,25 @@ router.post('/', authenticateToken, async (req, res) => {
         res.status(500).json({ error: 'Failed to create bid' });
     }
 });
+
+//GET all bids with a auctionID
+router.get('/:id', authenticateToken, async (req, res) => {
+   console.log('GET /bid endpoint hit 2');
+
+   const { id } = req.params;
+   console.log("ID:" + id)
+
+   try {
+       const auctionBids = await db.collection('bid').find({auctionID: new ObjectId(id)}).toArray();
+       if (!auctionBids) {
+           return res.status(404).json({ error: 'auctionBids not found' });
+       }
+       res.status(200).json(auctionBids);
+   } catch (e) {
+       console.log(e);
+       res.status(404).json({ error: 'Failed to fetch bid' });
+   }
+});
+
 
 export default router;

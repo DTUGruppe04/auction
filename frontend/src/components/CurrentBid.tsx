@@ -1,6 +1,35 @@
 import { Card } from "flowbite-react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export function CurrentBid() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchAuctionBids = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    navigate('/');
+                    return;
+                }
+                const id = "6733b1b266c21292e9f3b43a";
+                const response = await fetch(`http://localhost:5050/bid/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const data = await response.json();
+                console.log(data);
+            } catch (e) {
+                console.log(e)
+            }
+        }
+        fetchAuctionBids()
+    });
+
+
+
     return (
         <Card className="max-w-sm">
             <div className="">
