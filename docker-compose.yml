@@ -26,7 +26,7 @@ services:
     networks:
       - mern-network
     environment:
-      - APP_URL=${BASE_URL}
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
 
   mongo:
     image: mongo:latest
