@@ -23,7 +23,7 @@ services:
     networks:
       - mern-network
     env:
-        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}  # Reference React API URL from GitHub Secrets
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
 
   mongo:
     image: mongo:latest
@@ -34,7 +34,9 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}  # MongoDB username
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}  # MongoDB password
-      - MONGO_INITDB_DATABASE: mydatabase
+      - MONGO_INITDB_DATABASE=mydatabase
+    volumes:
+      - mongo-data:/data/db
 
 networks:
   mern-network:
