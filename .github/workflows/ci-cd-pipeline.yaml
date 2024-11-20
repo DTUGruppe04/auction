@@ -93,5 +93,5 @@ jobs:
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}  # MongoDB password
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           BASE_URL: ${{ secrets.BASE_URL }}
-          #PORT: ${{ secrets.PORT }}
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }} # possibly redundant
+          PORT: ${{ secrets.PORT || '5050' }}
