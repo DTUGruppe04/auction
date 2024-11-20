@@ -25,7 +25,7 @@ services:
       - backend
     networks:
       - mern-network
-    environment:
+    env:
       - REACT_APP_API_URL=${REACT_APP_API_URL}
 
   mongo:
