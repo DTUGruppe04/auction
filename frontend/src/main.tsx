@@ -1,9 +1,66 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import Helloworld from "./container/helloworld/Helloworld.tsx";
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+import App from "./App";
+import Record from "./components/Record";
+import RecordList from "./components/RecordList";
+import "./index.css";
+import LoginRegisterPage from "./pages/login_register.tsx";
+import AuctionPage from "./pages/AuctionPage.tsx";
+import ProtectedRoute from "./components/ProtectedRoute";
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <Helloworld />
-  </StrictMode>,
-)
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+        children: [
+            {
+                path: "/",
+                element: <RecordList />,
+            },
+            {
+                path: "/login",
+                element: <LoginRegisterPage />,
+            },
+            {
+                path: "/auctionPage",
+                element: (
+                    <ProtectedRoute>
+                        <AuctionPage />
+                    </ProtectedRoute>
+                ),
+            },
+        ],
+    },
+    {
+        path: "/edit/:id",
+        element: <App />,
+        children: [
+            {
+                path: "/edit/:id",
+                element: <Record />,
+            },
+        ],
+    },
+    {
+        path: "/create",
+        element: <App />,
+        children: [
+            {
+                path: "/create",
+                element: <Record />,
+            },
+        ],
+    },
+]);
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+ReactDOM.createRoot(document.getElementById("root")).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+);
