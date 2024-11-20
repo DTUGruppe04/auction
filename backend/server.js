@@ -8,7 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const secret = "team04"; // Use a secure secret in production
+const config = require('./config');
+
+const secret = config.JWT_SECRET_KEY;
 
 function authenticateToken(req, res, next) {
     const authHeader = req.headers["authorization"];
@@ -32,7 +34,7 @@ app.use("/auth", authRouter);
 //can only access /record if authenticated can be used when want to restrict access to certain routes
 app.use("/record", authenticateToken, recordRouter);
 
-const port = process.env.PORT || 5050;
+const port = config.PORT || 5050;
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 });
