@@ -8,6 +8,7 @@ services:
     environment:
       - NODE_ENV=production
       - ATLAS_URI=${ATLAS_URI}   # MongoDB URI as an environment variable
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
     depends_on:
       - mongo
     networks:
