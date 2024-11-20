@@ -92,6 +92,6 @@ jobs:
           MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}  # MongoDB username
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}  # MongoDB password
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
-          #BASE_URL: ${{ secrets.BASE_URL }} # missing
-          #REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }} # missing
-          #PORT: ${{ secrets.PORT }} # backend port / missing
+          BASE_URL: ${{ secrets.BASE_URL }}
+          PORT: ${{ secrets.PORT }}
+          #REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }} # probably redundant
