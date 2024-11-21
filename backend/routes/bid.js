@@ -64,7 +64,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
    console.log("ID:" + id)
 
    try {
-       const auctionBids = await db.collection('bid').find({auctionID: new ObjectId(id)}).toArray();
+       const auctionBids = await db.collection('bid').find({auctionID: new ObjectId(id)}).sort({ dateTime: -1 }).toArray();
        if (!auctionBids) {
            return res.status(404).json({ error: 'auctionBids not found' });
        }
