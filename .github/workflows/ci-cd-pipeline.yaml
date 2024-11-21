@@ -109,3 +109,7 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL }}
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }} # possibly redundant
           ##PORT: ${{ secrets.PORT || '5050' }} 
+
+      # Step 12: Show ATLAS_URI (after deployment)
+      - name: Show ATLAS_URI (after deployment)
+        run: echo $ATLAS_URI  # This will output the ATLAS_URI environment variable to the logs
