@@ -10,7 +10,7 @@ services:
       - ATLAS_URI=${ATLAS_URI}   # MongoDB URI as an environment variable
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - BASE_URL=${BASE_URL}
-      - PORT=${PORT}
+      #- PORT=${PORT}
     depends_on:
       - mongo
     networks:
