@@ -88,6 +88,16 @@ jobs:
             echo "Starting deploy process..."
             cd /home/deployer/projects/auction
             echo "Pulled into the project directory"
+
+            export NODE_ENV=${{ secrets.NODE_ENV }}
+            export ATLAS_URI=${{ secrets.ATLAS_URI }}
+            export JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
+            export BASE_URL=${{ secrets.BASE_URL }}
+            export REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}
+            export MONGO_INITDB_ROOT_USERNAME=${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
+            export MONGO_INITDB_ROOT_PASSWORD=${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+
+            echo "Environment variables set."
             bash deploy.sh
             echo "Deployment completed successfully"
         env:
