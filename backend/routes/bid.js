@@ -16,6 +16,27 @@ router.post('/', authenticateToken, async (req, res) => {
     const userID = new ObjectId(req.user.id);
 
     try {
+
+        // Get the current bid from the database
+        const getCurrentBid = await db.collection('bid').findOne(
+            { auctionID: new ObjectId(auctionID) },
+            { sort: { dateTime: -1 } }
+        );
+
+        console.log("BidAmountFromUser:" + amount)
+        // Check current bid
+        if (getCurrentBid) {
+            console.log("GetCurrentBid:" + getCurrentBid.amount);
+            if (getCurrentBid.amount > amount) {
+                console.log("Not larger than current bid")
+                return res.status(420).json({ error: 'Not larger than current bid' })
+            }
+        } else {
+            console.log("No current bid found, adding new bid")
+        }
+
+        // Add bid to database
+        console.log("Adding new bid");
         const bid = { userID, amount, dateTime, auctionID: new ObjectId(auctionID)};
         const result = await db.collection('bid').insertOne(bid)
         const bidID = result.insertedId;
@@ -27,6 +48,8 @@ router.post('/', authenticateToken, async (req, res) => {
         );
 
         res.status(201);
+
+
     } catch (e) {
         console.log(e);
         res.status(500).json({ error: 'Failed to create bid' });
