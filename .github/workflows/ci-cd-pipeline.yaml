@@ -85,7 +85,12 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_ACTIONS_KEY }}
           script: |
-            cd /home/deployer/projects/auction
+            echo "Starting deploy process..."
+            cd /home/deployer/projects/auction  # Make sure this is the correct path to your project
+            echo "Pulled into the project directory"
+          # Execute deploy.sh script
+            bash deploy.sh
+            echo "Deployment completed successfully"
         env:
           NODE_ENV: ${{ secrets.NODE_ENV }}  # Nodne environment variable
           ATLAS_URI: ${{ secrets.ATLAS_URI }}  # Atlas for MongoDB
