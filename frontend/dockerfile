@@ -1,31 +1,20 @@
-# Stage 1: Build the React app
-# Use a Node.js version compatible with your project (>=18.0.0)
-FROM node:22.8.0 as build
-
+# 1. Base image and global setup
+FROM node:22.8.0 AS base
 WORKDIR /usr/src/app
-
-# Update npm to a compatible version (>=8.0.0)
 RUN npm install -g npm@8
 
-# Copy package files and install dependencies
+# 2. Dependencies installation
+FROM base AS dependencies
 COPY package*.json ./
-RUN npm install --cache /usr/src/app/.npm --prefer-offline
-# RUN npm ci
+RUN npm ci
 
-# Copy the rest of the app's source code
+# 3. Build stage
+FROM dependencies AS build
 COPY . .
-
-# Build the app
 RUN npm run build
 
-# Stage 2: Serve the built app with Nginx
-FROM nginx:alpine
-
-# Copy the build output to the Nginx HTML directory
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
-
-# Expose the frontend port (e.g., 80)
+# 4. Production image
+FROM nginx:alpine AS production
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
-
-# Nginx will automatically serve the static content
 CMD ["nginx", "-g", "daemon off;"]
