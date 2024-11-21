@@ -112,4 +112,4 @@ jobs:
 
       # Step 12: Show ATLAS_URI (after deployment)
       - name: Show ATLAS_URI (after deployment)
-        run: echo $ATLAS_URI  # This will output the ATLAS_URI environment variable to the logs t
+        run: echo $ATLAS_URI  # This will output the ATLAS_URI environment variable to the logs ts
