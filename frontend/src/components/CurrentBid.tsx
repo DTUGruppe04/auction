@@ -1,9 +1,13 @@
 import { Card } from "flowbite-react";
-import { useEffect } from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import {Bid, Bids} from "../types/Bids.ts";
+
 
 export function CurrentBid() {
     const navigate = useNavigate();
+    const [bids, setBids] = useState<Bid[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchAuctionBids = async () => {
@@ -19,16 +23,24 @@ export function CurrentBid() {
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                const data = await response.json();
-                console.log(data);
+                return await response.json();
             } catch (e) {
                 console.log(e)
             }
+        };
+        const fetchData = async () => {
+            const [auctionBids] = await Promise.all([fetchAuctionBids()]);
+            setBids(auctionBids);
+            setLoading(false);
+            console.log("Loading have been set to false")
+            console.log(bids);
         }
-        fetchAuctionBids()
-    });
+        fetchData()
+    }, [navigate]);
 
-
+    if(loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Card className="max-w-sm">
@@ -37,7 +49,7 @@ export function CurrentBid() {
                     Current Bid:
                 </p>
                 <p className="text-2xl text-center">
-                    $500 USD
+                    ${bids[0].amount}
                 </p>
 
                 <p className="text-xs text-center pt-2 pb-2 text-gray-500">

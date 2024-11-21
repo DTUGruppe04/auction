@@ -16,7 +16,7 @@ export const ImageSlideshow: React.FC<AuctionProp> = ({ item }) => {
     );
 };
 
-export const ImageInfo: React.FC<AuctionProp> = ({item}) => {
+export const ImageInfo: React.FC<AuctionProp> = ({ item }) => {
 
     const [amount, setAmount] = useState("");
 
