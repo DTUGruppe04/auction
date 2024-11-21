@@ -8,13 +8,14 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV}
       - ATLAS_URI=${ATLAS_URI}   # MongoDB URI as an environment variable
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY} #
       - BASE_URL=${BASE_URL}
       #- PORT=${PORT}
     depends_on:
       - mongo
     networks:
       - mern-network
+    command: ["sh", "-c", "echo $ATLAS_URI && echo $NODE_ENV && npm start"]
 
   frontend:
     build:
