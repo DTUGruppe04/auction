@@ -86,9 +86,8 @@ jobs:
           key: ${{ secrets.PRIVATE_ACTIONS_KEY }}
           script: |
             echo "Starting deploy process..."
-            cd /home/deployer/projects/auction  # Make sure this is the correct path to your project
+            cd /home/deployer/projects/auction
             echo "Pulled into the project directory"
-          # Execute deploy.sh script
             bash deploy.sh
             echo "Deployment completed successfully"
         env:
