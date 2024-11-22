@@ -29,52 +29,34 @@ jobs:
       # Step 3: Build and push backend Docker image
       - name: Build and push backend image
         run: |
-          docker build -t jenshols/mern-backend ./backend
-          docker push jenshols/mern-backend
+          docker build -t jenshols/mern-backend:latest ./backend
+          docker push jenshols/mern-backend:latest
 
       # Step 4: Build and push frontend Docker image
       - name: Build and push frontend image
         run: |
-          docker build -t jenshols/mern-frontend ./frontend
-          docker push jenshols/mern-frontend
+          docker build -t jenshols/mern-frontend:latest ./frontend
+          docker push jenshols/mern-frontend:latest
 
-      # Step 5: Check available memory
-      - name: Check available memory
-        run: free -m
-
-      # Step 6: Set up Node.js environment
+      # Step 5: Set up Node.js environment
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22.8.0'
 
-      # Step 7: Install Yarn globally
-      - name: Install Yarn
-        run: npm install -g yarn
-
-      # Backend-specific steps
-      - name: Install backend dependencies
+      # Step 6: Build frontend (memory allocation handled in Dockerfile)
+      - name: Build frontend
         run: |
-          cd backend
-          yarn install --frozen-lockfile
+          cd frontend
+          node --max-old-space-size=4096 $(yarn bin)/vite build
 
+      # Backend-specific tests (Optional)
       - name: Run backend tests
         run: |
           cd backend
           yarn test
 
-      # Frontend-specific steps
-      - name: Install frontend dependencies
-        run: |
-          cd frontend
-          yarn install --frozen-lockfile
-
-      - name: Build frontend
-        run: |
-          cd frontend
-          # Increase memory allocation for Vite builds
-          node --max-old-space-size=4096 $(yarn bin)/vite build
-
+      # Frontend-specific tests
       - name: Run frontend tests
         run: |
           cd frontend
@@ -113,6 +95,6 @@ jobs:
           BASE_URL: ${{ secrets.BASE_URL }}
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
 
-      # Show ATLAS_URI (for debugging)
+      # Debugging (Optional)
       - name: Show ATLAS_URI (after deployment)
         run: echo $ATLAS_URI
