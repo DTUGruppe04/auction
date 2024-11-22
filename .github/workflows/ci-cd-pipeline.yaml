@@ -44,40 +44,44 @@ jobs:
         with:
           node-version: '22.8.0' 
 
+      # Install Yarn globally
+      - name: Install Yarn
+        run: |
+          npm install -g yarn
+
       # Backend-specific steps
       # Step 6: Install backend dependencies
       - name: Install backend dependencies
         run: |
           cd backend
-          npm install
+          yarn install --frozen-lockfile
 
       # Step 7: Run backend tests
       - name: Run backend tests
         run: |
           cd backend
-          npm test
+          yarn test
 
       # Frontend-specific steps
       # Step 8: Install frontend dependencies
       - name: Install frontend dependencies
         run: |
           cd frontend
-          npm install
+          yarn install --frozen-lockfile
 
       # Step 9: Build frontend
       - name: Build frontend
         run: |
           cd frontend
-          npm run build
+          yarn build
 
       # Step 10: Run frontend tests
       - name: Run frontend tests
         run: |
           cd frontend
-          npm test
+          yarn test
 
       # Step 11: Deploy to DigitalOcean
-
       - name: Deploy to DigitalOcean server
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -102,15 +106,14 @@ jobs:
             echo "Deployment completed successfully"
           command_timeout: 60m
         env:
-          NODE_ENV: ${{ secrets.NODE_ENV }}  # Nodne environment variable
+          NODE_ENV: ${{ secrets.NODE_ENV }}  # Node environment variable
           ATLAS_URI: ${{ secrets.ATLAS_URI }}  # Atlas for MongoDB
           MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}  # MongoDB username
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}  # MongoDB password
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           BASE_URL: ${{ secrets.BASE_URL }}
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }} # possibly redundant
-          ##PORT: ${{ secrets.PORT || '5050' }} 
 
       # Step 12: Show ATLAS_URI (after deployment)
       - name: Show ATLAS_URI (after deployment)
-        run: echo $ATLAS_URI  # This will output the ATLAS_URI environment variable to the logs ts
+        run: echo $ATLAS_URI  # This will output the ATLAS_URI environment variable to the logs
