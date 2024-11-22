@@ -15,7 +15,12 @@ services:
       - mongo
     networks:
       - mern-network
-    command: ["sh", "-c", "echo $ATLAS_URI && echo $NODE_ENV && npm start"]
+    command: ["npm", "start", "--development"]  # Updated command
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+          cpus: '0.5'
 
   frontend:
     build:
@@ -28,9 +33,14 @@ services:
       - mern-network
     environment:
       - REACT_APP_API_URL=${REACT_APP_API_URL}
+    deploy:
+      resources:
+        limits:
+          memory: 100M
+          cpus: '0.3'
 
   mongo:
-    image: mongo:latest
+    image: bitnami/mongodb:5.0.15
     ports:
       - "27017:27017"
     networks:
@@ -41,6 +51,11 @@ services:
       - MONGO_INITDB_DATABASE=mydatabase
     volumes:
       - mongo-data:/data/db
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+          cpus: '0.5'
 
 networks:
   mern-network:
