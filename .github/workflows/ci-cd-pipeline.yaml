@@ -56,7 +56,18 @@ jobs:
           cd backend
           yarn test
 
-      # Frontend-specific tests
+      # Frontend-specific steps in the workflow
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          yarn install --frozen-lockfile  # Ensure dependencies are installed
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          # Increase memory allocation for Vite builds
+          node --max-old-space-size=4096 $(yarn bin)/vite build
+
       - name: Run frontend tests
         run: |
           cd frontend
