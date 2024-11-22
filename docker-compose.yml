@@ -36,8 +36,8 @@ services:
     deploy:
       resources:
         limits:
-          memory: 100M
-          cpus: '0.3'
+          memory: 1GB
+          cpus: '0.5'
 
   mongo:
     image: bitnami/mongodb:5.0.15
