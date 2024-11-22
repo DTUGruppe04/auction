@@ -1,20 +1,19 @@
 # 1. Base image and global setup
 FROM node:22.8.0 AS base
 WORKDIR /usr/src/app
-RUN npm install -g yarn  # Install Yarn globally
 
 # 2. Dependencies installation
 FROM base AS dependencies
-COPY package*.json ./
-RUN yarn install --frozen-lockfile  # Use Yarn to install dependencies
+COPY package*.json ./yarn.lock ./ 
+RUN yarn install --frozen-lockfile 
 
 # 3. Build stage
 FROM dependencies AS build
-COPY . .
-RUN yarn run build  # Use Yarn to run the build script
+COPY . .  
+RUN yarn run build  # Run the build script
 
 # 4. Production image
 FROM nginx:alpine AS production
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
