@@ -62,6 +62,11 @@ jobs:
           cd frontend
           yarn install --frozen-lockfile  # Ensure dependencies are installed
 
+      - name: List node_modules/.bin for debugging
+        run: |
+          cd frontend
+          ls node_modules/.bin  # Verify that 'vite' is here after install
+
       - name: Build frontend
         run: |
           cd frontend
