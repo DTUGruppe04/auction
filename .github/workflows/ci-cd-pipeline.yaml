@@ -19,66 +19,69 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Log in to Docker Hub using the secrets
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.8.0' 
+
+      # Install Yarn globally
+      - name: Install Yarn
+        run: |
+          npm install -g yarn
+
+      # Backend-specific steps
+      # Step 3: Install backend dependencies
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          yarn install --frozen-lockfile
+
+      # Step 4: Run backend tests
+      - name: Run backend tests
+        run: |
+          cd backend
+          yarn test
+
+      # Frontend-specific steps
+      # Step 5: Install frontend dependencies
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          yarn install --frozen-lockfile
+
+      # Step 6: Build frontend
+      - name: Build frontend
+        run: |
+          cd frontend
+          yarn build
+
+      # Step 7: Run frontend tests
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          yarn test
+
+      # Step 8: Log in to Docker Hub using the secrets
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Step 3: Build and push backend Docker image
+      # Step 9: Build and push backend Docker image
       - name: Build and push backend image
         run: |
-          docker build -t jenshols/mern-backend:latest ./backend
-          docker push jenshols/mern-backend:latest
+          docker build -t jenshols/mern-backend ./backend
+          docker push jenshols/mern-backend
 
-      # Step 4: Build and push frontend Docker image
+      # Step 10: Build and push frontend Docker image
       - name: Build and push frontend image
         run: |
-          docker build -t jenshols/mern-frontend:latest ./frontend
-          docker push jenshols/mern-frontend:latest
+          docker build -t jenshols/mern-frontend ./frontend
+          docker push jenshols/mern-frontend
 
-      # Step 5: Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22.8.0'
-
-      # Step 6: Build frontend (memory allocation handled in Dockerfile)
-      - name: Build frontend
-        run: |
-          cd frontend
-          node --max-old-space-size=4096 $(yarn bin)/vite build
-
-      # Backend-specific tests (Optional)
-      - name: Run backend tests
-        run: |
-          cd backend
-          yarn test
-
-      # Frontend-specific steps in the workflow
-      - name: Install frontend dependencies
-        run: |
-          cd frontend
-          yarn install --frozen-lockfile  # Ensure dependencies are installed
-
-      - name: List node_modules/.bin for debugging
-        run: |
-          cd frontend
-          ls node_modules/.bin  # Verify that 'vite' is here after install
-
-      - name: Build frontend
-        run: |
-          cd frontend
-          # Increase memory allocation for Vite builds
-          node --max-old-space-size=4096 $(yarn bin)/vite build
-
-      - name: Run frontend tests
-        run: |
-          cd frontend
-          yarn test
-
-      # Deploy to DigitalOcean
+      # Step 11: Deploy to DigitalOcean
       - name: Deploy to DigitalOcean server
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -103,14 +106,10 @@ jobs:
             echo "Deployment completed successfully"
           command_timeout: 60m
         env:
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          ATLAS_URI: ${{ secrets.ATLAS_URI }}
-          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}  # Node environment variable
+          ATLAS_URI: ${{ secrets.ATLAS_URI }}  # Atlas for MongoDB
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGO_INITDB_ROOT_USERNAME }}  # MongoDB username
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_INITDB_ROOT_PASSWORD }}  # MongoDB password
           JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
           BASE_URL: ${{ secrets.BASE_URL }}
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-
-      # Debugging (Optional)
-      - name: Show ATLAS_URI (after deployment)
-        run: echo $ATLAS_URI
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }} # possibly redundant

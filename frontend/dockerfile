@@ -1,24 +1,19 @@
 # 1. Base image and global setup
 FROM node:22.8.0 AS base
 WORKDIR /usr/src/app
-# Remove redundant global Yarn installation (already included in the Node.js image)
 
 # 2. Dependencies installation
 FROM base AS dependencies
-COPY package*.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+COPY package*.json ./yarn.lock ./ 
+RUN yarn install --frozen-lockfile 
 
 # 3. Build stage
 FROM dependencies AS build
-COPY . . 
-# Increase memory allocation during build
-RUN node --max-old-space-size=4096 $(yarn bin)/vite build
+COPY . .  
+RUN yarn run build  # Run the build script
 
 # 4. Production image
 FROM nginx:alpine AS production
-# Copy the build output from the build stage
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
-# Expose port 80 for the production server
+COPY --from=build /usr/src/app/dist /usr/share/nginx/html 
 EXPOSE 80
-# Command to run NGINX
 CMD ["nginx", "-g", "daemon off;"]
