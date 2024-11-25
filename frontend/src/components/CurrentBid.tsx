@@ -1,10 +1,14 @@
 import { Card } from "flowbite-react";
 import {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-import {Bid, Bids} from "../types/Bids.ts";
+import {Bid} from "../types/Bids.ts";
+import {Auction} from "../types/Auction.ts";
 
+interface AuctionProp {
+    item: Auction;
+}
 
-export function CurrentBid() {
+export const CurrentBid: React.FC<AuctionProp> = ({ item }) => {
     const navigate = useNavigate();
     const [bids, setBids] = useState<Bid[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -17,7 +21,8 @@ export function CurrentBid() {
                     navigate('/');
                     return;
                 }
-                const id = "6733b1b266c21292e9f3b43a";
+                const id = item.auctionID
+                //const id = "6733b1b266c21292e9f3b43a";
                 const response = await fetch(`http://localhost:5050/bid/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`

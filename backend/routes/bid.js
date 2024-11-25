@@ -27,7 +27,7 @@ router.post('/', authenticateToken, async (req, res) => {
         // Check current bid
         if (getCurrentBid) {
             console.log("GetCurrentBid:" + getCurrentBid.amount);
-            if (getCurrentBid.amount > amount) {
+            if (Number(getCurrentBid.amount) > Number(amount)) {
                 console.log("Not larger than current bid")
                 return res.status(420).json({ error: 'Not larger than current bid' })
             }

@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 import authenticateToken from "./middleware/authenticateToken.js"; // Import the middleware
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "http://localhost:5174" }));
 app.use(express.json());
 
 const secret = "team04"; // Use a secure secret in production

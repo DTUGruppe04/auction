@@ -32,7 +32,7 @@ function AuctionPage() {
                             <ImageInfo item={auction} />
                         </div>
                         <div className="grid justify-center pt-6">
-                            <CurrentBid/>
+                            <CurrentBid item={auction}/>
                         </div>
                     </div>
                 </div>
