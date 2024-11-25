@@ -39,27 +39,6 @@ services:
           memory: 1GB
           cpus: '0.5'
 
-  mongo:
-    image: bitnami/mongodb:5.0.15
-    ports:
-      - "27017:27017"
-    networks:
-      - mern-network
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}  # MongoDB username
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}  # MongoDB password
-      - MONGO_INITDB_DATABASE=mydatabase
-    volumes:
-      - mongo-data:/data/db
-    deploy:
-      resources:
-        limits:
-          memory: 250M
-          cpus: '0.5'
-
 networks:
   mern-network:
     driver: bridge
-
-volumes:
-  mongo-data:
