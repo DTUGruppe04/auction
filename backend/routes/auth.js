@@ -6,7 +6,8 @@ import {ObjectId} from "mongodb";
 import authenticateToken from "../middleware/authenticateToken.js";
 
 const router = express.Router();
-const secret = "team04"; // Use a secure secret in production
+const config = require('../config');
+const secret = config.JWT_SECRET_KEY;
 
 // Function to validate address (this is a placeholder, implement actual validation logic)
 function isValidAddress(address) {

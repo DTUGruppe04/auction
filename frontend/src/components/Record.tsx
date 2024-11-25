@@ -24,7 +24,7 @@ export default function Record() {
             const id = params.id?.toString();
             if (!id) return;
             setIsNew(false);
-            const response = await fetch(`http://localhost:5050/records/${id}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5050'}/records/${id}`);
             if (!response.ok) {
                 const message = `An error has occurred: ${response.statusText}`;
                 console.error(message);
@@ -56,21 +56,21 @@ export default function Record() {
         try {
             let response: Response;
             if (isNew) {
-                response = await fetch("http://localhost:5050/records", {
+                response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5050'}/records`, {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
+                      "Content-Type": "application/json",
                     },
                     body: JSON.stringify(person),
-                });
+                  });
             } else {
-                response = await fetch(`http://localhost:5050/records/${params.id}`, {
+                response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5050'}/records/${params.id}`, {
                     method: "PATCH",
                     headers: {
-                        "Content-Type": "application/json",
+                      "Content-Type": "application/json",
                     },
                     body: JSON.stringify(person),
-                });
+                  });
             }
 
             if (!response.ok) {

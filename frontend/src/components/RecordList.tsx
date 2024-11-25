@@ -54,7 +54,7 @@ export default function RecordList() {
     // Fetch records from the database
     useEffect(() => {
         async function getRecords() {
-            const response = await fetch(`http://localhost:5050/records/`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5050'}/records/`);
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
                 console.error(message);
@@ -68,7 +68,7 @@ export default function RecordList() {
 
     // Delete a record
     async function deleteRecord(id: string) {
-        await fetch(`http://localhost:5050/records/${id}`, {
+        await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5050'}/records/${id}`, {
             method: "DELETE",
         });
         const newRecords = records.filter((el) => el._id !== id);

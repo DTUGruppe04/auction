@@ -1,13 +1,15 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import { MongoMemoryServer } from 'mongodb-memory-server';
 
-let db;
-let client;
+const config = require('../config');
+const uri = config.ATLAS_URI || "";
+
+console.log("ATLAS_URI: ", process.env.ATLAS_URI); // debug console log
 
 if (process.env.NODE_ENV === 'test') {
     const mongoServer = await MongoMemoryServer.create();
     const uri = mongoServer.getUri();
-    client = new MongoClient(uri, {
+    const client = new MongoClient(uri, {
         serverApi: {
             version: ServerApiVersion.v1,
             strict: true,
@@ -15,8 +17,7 @@ if (process.env.NODE_ENV === 'test') {
         },
     });
 } else {
-    const uri = process.env.ATLAS_URI || "";
-    client = new MongoClient(uri, {
+    const client = new MongoClient(uri, {
         serverApi: {
             version: ServerApiVersion.v1,
             strict: true,
@@ -24,6 +25,8 @@ if (process.env.NODE_ENV === 'test') {
         },
     });
 }
+
+
 
 try {
     // Connect the client to the server
@@ -33,7 +36,7 @@ try {
     console.log(
         "Pinged your deployment. You successfully connected to MongoDB!"
     );
-    db = client.db("employees");
+    let db = client.db("employees");
 } catch (err) {
     console.error(err);
 }

@@ -147,3 +147,4 @@ dist
 *.njsproj
 *.sln
 *.sw?
+backend/config.env

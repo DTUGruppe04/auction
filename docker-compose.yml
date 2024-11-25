@@ -1,0 +1,65 @@
+version: '3'
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - ATLAS_URI=${ATLAS_URI}   # MongoDB URI as an environment variable
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY} #
+      - BASE_URL=${BASE_URL}
+      #- PORT=${PORT}
+    depends_on:
+      - mongo
+    networks:
+      - mern-network
+    command: ["npm", "start", "--development"]  # Updated command
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+          cpus: '0.5'
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80" # 80 is the default port for Nginx, mapped to 3000
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+    deploy:
+      resources:
+        limits:
+          memory: 1GB
+          cpus: '0.5'
+
+  mongo:
+    image: bitnami/mongodb:5.0.15
+    ports:
+      - "27017:27017"
+    networks:
+      - mern-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}  # MongoDB username
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}  # MongoDB password
+      - MONGO_INITDB_DATABASE=mydatabase
+    volumes:
+      - mongo-data:/data/db
+    deploy:
+      resources:
+        limits:
+          memory: 250M
+          cpus: '0.5'
+
+networks:
+  mern-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
