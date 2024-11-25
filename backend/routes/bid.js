@@ -48,8 +48,6 @@ router.post('/', authenticateToken, async (req, res) => {
         );
 
         res.status(201);
-
-
     } catch (e) {
         console.log(e);
         res.status(500).json({ error: 'Failed to create bid' });
@@ -65,7 +63,7 @@ router.get('/:id', authenticateToken, async (req, res) => {
 
    try {
        const auctionBids = await db.collection('bid').find({auctionID: new ObjectId(id)}).sort({ dateTime: -1 }).toArray();
-       if (!auctionBids) {
+       if (!auctionBids || auctionBids.length === 0) {
            return res.status(404).json({ error: 'auctionBids not found' });
        }
        res.status(200).json(auctionBids);
