@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const config = {
     ATLAS_URI: process.env.ATLAS_URI,
     BASE_URL: process.env.APP_URL || "http://localhost:5050",
@@ -6,4 +9,4 @@ const config = {
 
   };
   
-  module.exports = config;
+export default config;

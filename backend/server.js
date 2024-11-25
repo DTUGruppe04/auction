@@ -10,14 +10,15 @@ import artpiecesRouter from "./routes/artpieces.js";
 import bidRouter from "./routes/bid.js";
 import jwt from "jsonwebtoken";
 import authenticateToken from "./middleware/authenticateToken.js"; // Import the middleware
+import config from './config.js';
 
 const app = express();
 app.use(cors({ origin: "http://localhost:5174" }));
 app.use(express.json());
 
-const config = require('./config');
-
 const secret = config.JWT_SECRET_KEY;
+
+console.log(secret);
 
 // Get the directory name
 const __filename = fileURLToPath(import.meta.url);

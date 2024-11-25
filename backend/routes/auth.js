@@ -6,8 +6,12 @@ import {ObjectId} from "mongodb";
 import authenticateToken from "../middleware/authenticateToken.js";
 
 const router = express.Router();
-const config = require('../config');
+import config from '../config.js'
+
+//const config = require('../config.js');
 const secret = config.JWT_SECRET_KEY;
+
+console.log("Auth Secrets:" + secret);
 
 // Function to validate address (this is a placeholder, implement actual validation logic)
 function isValidAddress(address) {
