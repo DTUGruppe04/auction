@@ -4,7 +4,6 @@ import path from "path";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import authRouter from "./routes/auth.js";
-import recordRouter from "./routes/record.js";
 import auctionsRouter from "./routes/auctions.js";
 import artpiecesRouter from "./routes/artpieces.js";
 import bidRouter from "./routes/bid.js";
@@ -37,7 +36,6 @@ app.use("/pictures", express.static(path.join(__dirname, "pictures")), (req, res
 
 //can only access /record if authenticated can be used when want to restrict access to certain routes
 app.use("/auth", authRouter);
-app.use("/record", authenticateToken, recordRouter);
 app.use("/auctions", authenticateToken, auctionsRouter);
 app.use("/artpieces", authenticateToken, artpiecesRouter);
 app.use("/bid", authenticateToken, bidRouter);

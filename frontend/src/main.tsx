@@ -5,7 +5,6 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import App from "./App";
-import Record from "./components/Record";
 import "./index.css";
 import LoginRegisterPage from "./pages/login_register.tsx";
 import AuctionPage from "./pages/AuctionPage.tsx";
@@ -45,26 +44,6 @@ const router = createBrowserRouter([
             {
                 path: "/auction/:id",
                 element: <AuctionPage />,
-            },
-        ],
-    },
-    {
-        path: "/edit/:id",
-        element: <App />,
-        children: [
-            {
-                path: "/edit/:id",
-                element: <Record />,
-            },
-        ],
-    },
-    {
-        path: "/create",
-        element: <App />,
-        children: [
-            {
-                path: "/create",
-                element: <Record />,
             },
         ],
     },
