@@ -54,7 +54,7 @@ export const CurrentBid: React.FC<AuctionProp> = ({ item }) => {
                     Current Bid:
                 </p>
                 <p className="text-2xl text-center">
-                    ${bids[0].amount}
+                    ${bids.length > 0 ? bids[0].amount : 'No bids yet'}
                 </p>
 
                 <p className="text-xs text-center pt-2 pb-2 text-gray-500">

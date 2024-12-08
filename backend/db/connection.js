@@ -16,6 +16,7 @@ if (process.env.NODE_ENV === 'test') {
             strict: true,
             deprecationErrors: true,
         },
+        writeConcern: { w: 'majority' }
     });
 } else {
     const uri = config.ATLAS_URI || "";
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === 'test') {
             strict: true,
             deprecationErrors: true,
         },
+        writeConcern: { w: 'majority' }
     });
 }
 

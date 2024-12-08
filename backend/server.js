@@ -12,7 +12,7 @@ import authenticateToken from "./middleware/authenticateToken.js"; // Import the
 import config from './config.js';
 
 const app = express();
-app.use(cors({ origin: "http://localhost:5174" }));
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 
 const secret = config.JWT_SECRET_KEY;
