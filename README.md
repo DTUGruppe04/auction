@@ -24,3 +24,10 @@ username: team_admin04
 password: admin123
 
 Herefter popper der et link op du kan trykke på for at åbne websted.
+
+## Authors
+- David Nicolai Madsen
+- Jens Helmer Olesen
+- Jonathan Mikkel Madsen
+- Simon Christian Madsen
+- Valdemar Klamer Ottesen
